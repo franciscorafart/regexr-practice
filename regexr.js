@@ -17,31 +17,39 @@
 verify(/ca[rt]/,
        ["my car", "bad cats"],
        ["camper", "high art"]);
+       //matches 'ca' and any characters between r and t after
 
 verify(/pr?op/,
        ["pop culture", "mad props"],
        ["plop"]);
+       //matches 'p', then 'r' as an option and then 'op'
 
-verify(/ferr\*/,
+verify(/ferr\w*/,
        ["ferret", "ferry", "ferrari"],
        ["ferrum", "transfer A"]);
+       //matches 'ferr' and then any word character after
 
 verify(/\w*ious/,
        ["how delicious", "spacious room"],
        ["ruinous", "consciousness"]);
+       //matches any (or non) word characters and then 'ious'
 
-verify(/ (\.|,|;|:)/, // \. because . has special meaning in RegExp
+verify(/ (\.|,|;|:)/,
        ["bad punctuation ."],
        ["escape the dot"]);
+       //matches an empty space ' ' and then . or , or ; or ;
+       // backlash on \. because . has special meaning in RegExp
 
 verify(/\w{6}\w+/,
        ["hottentottententen"],
        ["no", "hotten totten tenten"]);
+       //matches 6 word characters and 1 or more after.
 
 verify(/\b\w+?e\w+?\b/,
        ["red platypus", "wobbling nest"],
        ["earth bed", "learning ape"]);
-
+       //Inside a word boundry \b, we match any number of words as an option, then e, and then any number of words as an option
+       //This way the word can start and finish with e
 
 function verify(regexp, yes, no) {
   // Ignore unfinished exercises
